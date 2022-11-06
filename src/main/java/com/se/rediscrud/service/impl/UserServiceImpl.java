@@ -1,9 +1,9 @@
 package com.se.rediscrud.service.impl;
 
-import com.se.rediscrud.model.Role;
 import com.se.rediscrud.model.User;
 import com.se.rediscrud.repository.UserRepository;
 import com.se.rediscrud.service.UserService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     
     @Override
+    @Cacheable(value = "User")
     public User save(User user) {
         return this.userRepository.save(user);
     }
